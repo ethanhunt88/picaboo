@@ -29,7 +29,13 @@ function goButton() {
   recognition.onerror = function(event) {
     goBtn.disabled = false;
     goBtn.textContent = "Go";
-    errorInfo.textContent = 'Error occurred in recognition: ' + event.error;
+    errorType = event.error;
+
+    if(errorType == 'no-speech') {
+      goButton();
+    } else {
+      errorInfo.textContent = 'Error occurred in recognition: ' + errorType;
+    }
   }
 
   function stopListening() {
