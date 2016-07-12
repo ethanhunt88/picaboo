@@ -1,6 +1,7 @@
 var recognition = new webkitSpeechRecognition();
 var goBtn = document.querySelector('button');
 var input = document.querySelector('.input');
+var errorInfo = document.querySelector('.error-info');
 
 function goButton() {
   goBtn.disabled = true;
@@ -22,7 +23,7 @@ function goButton() {
     goBtn.disabled = false;
     goBtn.textContent = "Go";
     goBtn.textContent = 'Start new test';
-    diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
+    errorInfo.textContent = 'Error occurred in recognition: ' + event.error;
   }
 
 }
