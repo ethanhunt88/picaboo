@@ -22,11 +22,8 @@ function goButton() {
     } else {
       input.textContent = word;
       renderImages(word);
+      goButton();
     }
-  }
-
-  recognition.onspeechend = function() {
-    goButton();
   }
 
   recognition.onerror = function(event) {
