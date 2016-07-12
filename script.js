@@ -17,12 +17,8 @@ function goButton() {
     confidence.textContent = confidenceLevel;
 
     $("#images").empty();
+    renderImages(word);
     
-    $.ajax({
-      url: 'https://api.flickr.com/services/feeds/photos_public.gne',
-      dataType: 'jsonp',
-      data: { "tags": word, "format": "json" }
-    });
   }
 
   recognition.onspeechend = function() {
@@ -38,6 +34,14 @@ function goButton() {
     errorInfo.textContent = 'Error occurred in recognition: ' + event.error;
   }
 
+}
+
+function renderImages(wordInput) {
+  $.ajax({
+    url: 'https://api.flickr.com/services/feeds/photos_public.gne',
+    dataType: 'jsonp',
+    data: { "tags": wordInput, "format": "json" }
+  });
 }
 
 function jsonFlickrFeed(json) {
