@@ -1,39 +1,45 @@
-var recognition = new webkitSpeechRecognition();
 var goBtn = document.querySelector('button');
 var input = document.querySelector('.input');
-var confidence = document.querySelector('.confidence-level');
 var errorInfo = document.querySelector('.error-info');
 
 function goButton() {
+  removeErrorDisplay();
+
   goBtn.disabled = true;
   goBtn.textContent = "Listening";
+
+  var recognition = new webkitSpeechRecognition();
   recognition.start();
 
   recognition.onresult = function(event) {
     var word = event.results[0][0].transcript;
-    var confidenceLevel = event.results[0][0].confidence;
-
-    input.textContent = word;
-    confidence.textContent = confidenceLevel;
 
     $("#images").empty();
-    renderImages(word);
-    
+
+    if(word == "stop") {
+      input.textContent = '';
+      stopListening();
+    } else {
+      input.textContent = word;
+      renderImages();
+    }
   }
 
   recognition.onspeechend = function() {
-    recognition.stop();
-    goBtn.disabled = false;
-    goBtn.textContent = "Go";
+    goButton();
   }
 
   recognition.onerror = function(event) {
     goBtn.disabled = false;
     goBtn.textContent = "Go";
-    goBtn.textContent = 'Start new test';
     errorInfo.textContent = 'Error occurred in recognition: ' + event.error;
   }
 
+  function stopListening() {
+    recognition.stop();
+    goBtn.disabled = false;
+    goBtn.textContent = "Go";
+  }
 }
 
 function renderImages(wordInput) {
@@ -50,4 +56,12 @@ function jsonFlickrFeed(json) {
   });
 };
 
-goBtn.addEventListener('click', goButton);
+function activateButton() {
+  goBtn.addEventListener('click', goButton);
+}
+
+function removeErrorDisplay() {
+  errorInfo.textContent = '';
+}
+
+activateButton();
