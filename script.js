@@ -21,7 +21,7 @@ function goButton() {
       stopListening();
     } else {
       input.textContent = word;
-      renderImages();
+      renderImages(word);
     }
   }
 
