@@ -1,6 +1,6 @@
 var recognition = new webkitSpeechRecognition();
 var goBtn = document.querySelector('button');
-var inputWord = document.querySelector('.input-word');
+var input = document.querySelector('.input');
 
 function goButton() {
   goBtn.disabled = true;
@@ -9,7 +9,7 @@ function goButton() {
 
   recognition.onresult = function(event) {
     var word = event.results[0][0].transcript;
-    inputWord.textContent = word;
+    input.textContent = word;
   }
 
   recognition.onspeechend = function() {
