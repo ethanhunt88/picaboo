@@ -35,6 +35,7 @@ function goButton() {
       goButton();
     } else {
       errorInfo.textContent = 'Error occurred in recognition: ' + errorType;
+      activateButton();
     }
   }
 
