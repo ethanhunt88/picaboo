@@ -1,0 +1,23 @@
+{
+  "name": "Picaboo",
+  "description": "Search Flickr through voice input",
+  "type": "privileged",
+  "launch_path": "index.html",
+  "icons": {
+    "512": "/img/ws512.png",
+    "128": "/img/ws128.png"
+  },
+  "developer": {
+    "name": "Ramon Ramos III",
+    "url": "https://bitbucket.org/arjis02/picaboo"
+  },
+  "default_locale": "en",
+  "permissions": {
+    "audio-capture" : {
+      "description" : "Audio capture"
+    },
+    "speech-recognition" : {
+      "description" : "Speech recognition"
+    }
+  }
+}
