@@ -4,9 +4,6 @@ var input = document.querySelector('.input');
 var confidence = document.querySelector('.confidence-level');
 var errorInfo = document.querySelector('.error-info');
 
-var flickrKey = "364e95c8cf3225977dfa93be089744d7";
-var flickrSecret = "ae571789c2e9c227";
-
 function goButton() {
   goBtn.disabled = true;
   goBtn.textContent = "Listening";
@@ -15,9 +12,17 @@ function goButton() {
   recognition.onresult = function(event) {
     var word = event.results[0][0].transcript;
     var confidenceLevel = event.results[0][0].confidence;
+
     input.textContent = word;
     confidence.textContent = confidenceLevel;
-    console.log(event);
+
+    $("#images").empty();
+    
+    $.ajax({
+      url: 'https://api.flickr.com/services/feeds/photos_public.gne',
+      dataType: 'jsonp',
+      data: { "tags": word, "format": "json" }
+    });
   }
 
   recognition.onspeechend = function() {
@@ -34,5 +39,11 @@ function goButton() {
   }
 
 }
+
+function jsonFlickrFeed(json) {
+  $.each(json.items, function(i, item) {
+    $("<img />").attr("src", item.media.m).appendTo("#images");
+  });
+};
 
 goBtn.addEventListener('click', goButton);
